@@ -1,0 +1,13 @@
+#topnav, #footer {
+  background-color: #0d8187 !important;
+}
+
+#logoPrincipal {
+  background-color: #303030 !important;
+}
+
+#logoPrincipalRound {
+  border-radius: 100% !important;
+  background-color: white !important;
+}
+/*# sourceMappingURL=main.css.map */
