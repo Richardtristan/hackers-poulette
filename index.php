@@ -1,6 +1,8 @@
 <?php
-$varPostNotNull = isset($_POST["name"]) && isset($_POST["gender"]) && isset($_POST["subject"]) && isset($_POST["question"]) && isset($_POST["country"]) && ($_POST["email"]) && isset($_POST["lastname"]);
-$varPostEmpty = empty($_POST["name"]) || empty($_POST["gender"]) || empty($_POST["subject"]) || empty($_POST["question"]) || empty($_POST["country"]) || empty($_POST["email"]) || empty($_POST["lastname"]);
+
+use PHPMailer\PHPMailer\PHPMailer;
+
+$allFieldEmpty = empty($_POST["name"]) || empty($_POST["gender"]) || empty($_POST["subject"]) || empty($_POST["question"]) || empty($_POST["country"]) || empty($_POST["email"]) || empty($_POST["lastname"]);
 $nameEmpty = empty($_POST["name"]);
 $genderEmpty = empty($_POST["gender"]);
 $subjectEmpty = empty($_POST["subject"]);
@@ -9,22 +11,31 @@ $countryEmpty = empty($_POST["country"]);
 $emailEmpty = empty($_POST["email"]);
 $lastnameEmpty = empty($_POST["lastname"]);
 
-function emptyField(){
-        return "Cette valeur est est vide";
-}
-function emailNotOk(){
-    return "Ce mail n'est pas valide";
-}
-
-if ($varPostNotNull){
+if (isset($_POST["name"]) && isset($_POST["gender"]) && isset($_POST["subject"]) && isset($_POST["question"]) && isset($_POST["country"]) && ($_POST["email"]) && isset($_POST["lastname"])) {
     $name = $_POST["name"];
     $lastname = $_POST["lastname"];
     $email = $_POST["email"];
     $country = $_POST["country"];
-    $email = $_POST["gender"];
-    $email = $_POST["subject"];
-    $email = $_POST["question"];
+    $gender = $_POST["gender"];
+    $subject = $_POST["subject"];
+    $question = $_POST["question"];
 }
+$email = $_POST["email"];
+$mailIsCorrect = filter_var($email, FILTER_VALIDATE_EMAIL);
+$emailNotOk = "Ce mail n'est pas valide";
+$emailOk = "Ce mail est valide";
+require 'PHPMailer-master/src/Exception.php';
+require 'PHPMailer-master/src/PHPMailer.php';
+require 'PHPMailer-master/src/SMTP.php';
+$phpmailer = new PHPMailer();
+$phpmailer->isSMTP();
+$phpmailer->Host = 'smtp.mailtrap.io';
+$phpmailer->SMTPAuth = true;
+$phpmailer->Port = 2525;
+$phpmailer->Username = '31c1ee257369f3';
+$phpmailer->Password = 'e3972277f45fdf';
+$emptyField = "Cette valeur est vide";
+
 ?>
 
 <!DOCTYPE html>
@@ -36,6 +47,7 @@ if ($varPostNotNull){
     <title>Hello Bulma!</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
     <link rel="stylesheet" href="assets/css/main.css">
+    <script src="assets/js/main.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bellota:wght@300&display=swap" rel="stylesheet">
@@ -70,27 +82,30 @@ if ($varPostNotNull){
 </nav>
 <div id="logoPrincipal" class="is-flex is-justify-content-center pt-6 pb-6">
     <figure class="image">
-        <img id="logoPrincipalRound" alt="image of the logo of de society" src="https://raw.githubusercontent.com/becodeorg/CRL-Keller-3.31/master/LearningPath/03.The-Mountain/09.PHP/PHP-Challenge/hackers-poulette/hackers-poulette-logo.png?token=AUEZCU3VS5ZEEI3N76PW35TBCOFMQ">
+        <img id="logoPrincipalRound" alt="image of the logo of de society"
+             src="https://raw.githubusercontent.com/becodeorg/CRL-Keller-3.31/master/LearningPath/03.The-Mountain/09.PHP/PHP-Challenge/hackers-poulette/hackers-poulette-logo.png?token=AUEZCU3VS5ZEEI3N76PW35TBCOFMQ">
     </figure>
 </div>
-<section class="section columns pb-6">
+<section class="section columns">
     <div class="container column is-2">
-        <img width="250" alt="image of envelope" class="image is-16by9"
+        <img width="250" alt="image of envelope" class="image is-16by9 pt-6"
              src="assets/img/send.png">
     </div>
     <div class="container column is-9">
-        <h1 class="title">
+        <h1 class="title pt-6">
             Hello World
         </h1>
-        <p class="subtitle">
-            My first website with <strong>Bulma</strong>!
+        <p class="subtitle pt-3 pb-3">
+            My first website Php <strong>Hakers-poulette</strong>!
         </p>
         <form method="post">
 
             <div class="field is-horizontal">
                 <div class="field-label is-normal">
-                    <label for="name"  class="label">Name</label>
-                    <?php if ($nameEmpty) { echo "<p>" . emptyField() . "</p>"; } ?>
+                    <label for="name" class="label">Name</label>
+                    <?php if ($nameEmpty) {
+                        echo "<p>" . $emptyField . "</p>";
+                    } ?>
                 </div>
                 <div class="field-body">
                     <div class="field">
@@ -103,8 +118,10 @@ if ($varPostNotNull){
 
             <div class="field is-horizontal">
                 <div class="field-label is-normal">
-                    <label for="lastname"  class="label">Lastname</label>
-                    <?php if ($lastnameEmpty) { echo "<p>" . emptyField() . "</p>"; } ?>
+                    <label for="lastname" class="label">Lastname</label>
+                    <?php if ($lastnameEmpty) {
+                        echo $emptyField . "</p>";
+                    } ?>
                 </div>
                 <div class="field-body">
                     <div class="field">
@@ -118,7 +135,14 @@ if ($varPostNotNull){
             <div class="field is-horizontal">
                 <div class="field-label is-normal">
                     <label for="email" class="label">email</label>
-                    <?php if ($emailEmpty) { echo "<p>" . emptyField() . "</p>"; } ?>
+                    <?php if ($emailEmpty) {
+                        echo "<p>" . $emptyField . "</p>";
+                    }
+                    if ($mailIsCorrect) {
+                        echo "<p>" . $emailOk . "</p>";
+                    } else {
+                        echo "<p>" . $emailNotOk . "</p>";
+                    } ?>
                 </div>
                 <div class="field-body">
                     <div class="field">
@@ -133,16 +157,18 @@ if ($varPostNotNull){
             <div class="field is-horizontal">
                 <div class="field-label is-normal">
                     <label for="country" class="label">country</label>
-                    <?php if ($countryEmpty) { echo "<p>" . emptyField() . "</p>"; } ?>
+                    <?php if ($countryEmpty) {
+                        echo "<p>" . $emptyField . "</p>";
+                    } ?>
                 </div>
                 <div class="field-body">
                     <div class="field is-narrow">
                         <div class="control">
                             <div class="select is-fullwidth">
                                 <select name="country" id="country">
-                                    <option  value="belgium">Belgium</option>
-                                    <option  value="france">France</option>
-                                    <option  value="italy">Italy</option>
+                                    <option value="belgium">Belgium</option>
+                                    <option value="france">France</option>
+                                    <option value="italy">Italy</option>
                                 </select>
                             </div>
                         </div>
@@ -153,7 +179,9 @@ if ($varPostNotNull){
             <div class="field is-horizontal">
                 <div class="field-label">
                     <label for="gender" class="label">your gender?</label>
-                    <?php if ($genderEmpty) { echo "<p>" . emptyField() . "</p>"; } ?>
+                    <?php if ($genderEmpty) {
+                        echo "<p>" . $emptyField . "</p>";
+                    } ?>
                 </div>
                 <div class="field-body">
                     <div class="field is-narrow">
@@ -174,7 +202,9 @@ if ($varPostNotNull){
             <div class="field is-horizontal">
                 <div class="field-label is-normal">
                     <label for="subject" class="label">Subject</label>
-                    <?php if ($subjectEmpty) { echo "<p>" . emptyField() . "</p>"; } ?>
+                    <?php if ($subjectEmpty) {
+                        echo "<p>" . $emptyField . "</p>";
+                    } ?>
                 </div>
                 <div class="field-body">
                     <div class="field is-narrow">
@@ -193,13 +223,16 @@ if ($varPostNotNull){
 
             <div class="field is-horizontal">
                 <div class="field-label is-normal">
-                    <label for="question"  class="label">Question</label>
-                    <?php if ($questionEmpty) { echo "<p>" . emptyField() . "</p>"; } ?>
+                    <label for="question" class="label">Question</label>
+                    <?php if ($questionEmpty) {
+                        echo "<p>" . $emptyField . "</p>";
+                    } ?>
                 </div>
                 <div class="field-body">
                     <div class="field">
                         <div class="control">
-                            <textarea name="question" id="question" class="textarea" placeholder="Explain how we can help you"></textarea>
+                            <textarea name="question" id="question" class="textarea"
+                                      placeholder="Explain how we can help you"></textarea>
                         </div>
                     </div>
                 </div>
@@ -207,7 +240,7 @@ if ($varPostNotNull){
 
             <div class="field is-horizontal">
                 <div class="field-label">
-                    <!-- Left empty for spacing -->
+                    <p class="has-background-primary">Inscription réussi</p>
                 </div>
                 <div class="field-body">
                     <div class="field">
@@ -222,13 +255,38 @@ if ($varPostNotNull){
         </form>
     </div>
 </section>
-
+<div id="modalSucces" class="modal">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+            <p class="modal-card-title">Modal title</p>
+            <button class="delete" aria-label="close"></button>
+        </header>
+        <section class="modal-card-body">
+            <!-- Content ... -->
+        </section>
+        <footer class="modal-card-foot">
+            <button class="button is-success">Save changes</button>
+            <button class="button">Cancel</button>
+        </footer>
+    </div>
+</div>
 <footer id="footer" class="footer mb-0">
     <div class="content has-text-centered has-text-white">
         <p>Copyright Tristan RICHARD 2021</p>
     </div>
 </footer>
-
+<?php
+if (!$allFieldEmpty) {
+    ?>
+    <script>
+        let modal = document.getElementById("modalSucces")
+        modal.classList.add("is-active")
+        modal.onclick = function () {
+            modal.classList.remove("is-active");
+        }
+    </script>
+<?php } ?>
 </body>
 
 </html>
