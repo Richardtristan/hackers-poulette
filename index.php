@@ -1,5 +1,7 @@
 <?php
-
+require 'PHPMailer-master/src/Exception.php';
+require 'PHPMailer-master/src/PHPMailer.php';
+require 'PHPMailer-master/src/SMTP.php';
 use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\PHPMailer;
 
@@ -11,41 +13,24 @@ $questionEmpty = empty($_POST["question"]);
 $countryEmpty = empty($_POST["country"]);
 $emailEmpty = empty($_POST["email"]);
 $lastnameEmpty = empty($_POST["lastname"]);
-$filterEmail = filter_var($_POST["email"], FILTER_VALIDATE_EMAIL);
 
-if (isset($_POST["name"])) {
-    $name = $_POST["name"];
-}
-if (isset($_POST["gender"])) {
-    $gender = $_POST["gender"];
-}
-if (isset($_POST["subject"])) {
-    $subject = $_POST["subject"];
-}
-if (isset($_POST["question"])) {
-    $question = $_POST["question"];
-}
-if (isset($_POST["country"])) {
-    $country = $_POST["country"];
-}
-if (isset($_POST["email"])) {
-    $email = $_POST["email"];
-}
-if (isset($_POST["lastname"])) {
-    $lastname = $_POST["lastname"];
-}
-
+$name = $_POST["name"] ?? "";
+$gender = $_POST["gender"] ?? "";
+$subject = $_POST["subject"] ?? "";
+$question = $_POST["question"] ?? "";
+$country = $_POST["country"] ?? "";
+$email = $_POST["email"] ?? "";
+$lastname = $_POST["lastname"] ?? "";
+$filterEmail = filter_var($email, FILTER_VALIDATE_EMAIL);
 $emailNotOk = "Ce mail n'est pas valide";
 $emailOk = "Ce mail est valide";
-require 'PHPMailer-master/src/Exception.php';
-require 'PHPMailer-master/src/PHPMailer.php';
-require 'PHPMailer-master/src/SMTP.php';
+
 $mail = new PHPMailer();
 $emptyField = "Cette valeur est vide";
 ?>
 
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/html" lang="en">
+<html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html" lang="en">
 
 <head>
     <meta charset="utf-8">
@@ -54,6 +39,7 @@ $emptyField = "Cette valeur est vide";
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
     <link rel="stylesheet" href="assets/css/main.css">
     <script src="assets/js/main.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bellota:wght@300&display=swap" rel="stylesheet">
@@ -152,7 +138,7 @@ $emptyField = "Cette valeur est vide";
                     <div class="field">
 
                         <label class=" has-icons-left has-icons-left">
-                            <input name="email" id="email" class="input" placeholder="Email" value="<?php echo $email?>">
+                            <input name="email" id="email" class="input" type="email" placeholder="Email" value="<?php echo $email?>">
                         </label>
                     </div>
                 </div>
@@ -235,7 +221,7 @@ $emptyField = "Cette valeur est vide";
                 <div class="field-body">
                     <div class="field">
                         <div class="control">
-                            <textarea name="question" id="question" class="textarea" placeholder="Explain how we can help you" value="<?php $question ?>"</textarea>
+                            <textarea name="question" id="question" class="textarea" placeholder="<?php echo $question ?>"></textarea>
                         </div>
                     </div>
                 </div>
@@ -247,9 +233,14 @@ $emptyField = "Cette valeur est vide";
                 <div class="field-body">
                     <div class="field">
                         <div class="control">
-                            <button type="submit" name="submit" value="ok" class="button is-primary">
-                                Send message
-                            </button>
+                            <button type="submit"
+                                    id="submit"
+                                    name="submit"
+                                    value="ok"
+                                    class="g-recaptcha button is-primary"
+                                    data-sitekey="6Ldfnd8bAAAAAN2-BF7s2Cu4_gecq2z-92h8uQRu"
+                                    data-callback='onSubmit'
+                                    data-action='submit'>Submit</button>
                         </div>
                     </div>
                 </div>
@@ -269,7 +260,6 @@ $emptyField = "Cette valeur est vide";
         </section>
         <footer class="modal-card-foot">
             <button class="button is-success">close</button>
-
         </footer>
     </div>
 </div>
@@ -278,37 +268,40 @@ $emptyField = "Cette valeur est vide";
         <p>Copyright Tristan RICHARD 2021</p>
     </div>
 </footer>
-<?php
-if (!$allFieldEmpty && $filterEmail) {
-    ?>
-    <script>
-        let modal = document.getElementById("modalSucces")
-        modal.classList.add("is-active")
-        modal.onclick = function () {
-            modal.classList.remove("is-active");
-        }
-    </script>
+    <?php if (!$allFieldEmpty && $filterEmail) { ?>
+        <script>
+            let modal = document.getElementById("modalSucces")
+            modal.classList.add("is-active")
+            modal.onclick = function () {
+                modal.classList.remove("is-active");
+            }
+        </script>
     <?php
-    try {
-        $mail->isSMTP();
-        $mail->Host = 'smtp.mailtrap.io';
-        $mail->SMTPAuth = true;
-        $mail->Port = 2525;
-        $mail->Username = '31c1ee257369f3';
-        $mail->Password = 'e3972277f45fdf';
-        $mail->CharSet = 'UTF-8';
-        $mail->addAddress($_POST["email"]);
-        $mail->setFrom('noreply@hackers-poulette.com', 'Hackers Poulette');
-        $mail->Subject = $_POST["subject"];
-        $mail->WordWrap = 50;
-        $mail->AltBody = "Thanks for the feedback";
-        $mail->isHTML(true);
-        $mail->Body = "<h1>Welcome !</h1><p>Thanks for de feedback</p>";
-        $mail->send();
-    } catch (Exception $e) {
-        echo "<p> send not ok </p>";
+        try {
+            $mail->isSMTP();
+            $mail->Host = 'smtp.mailtrap.io';
+            $mail->SMTPAuth = true;
+            $mail->Port = 2525;
+            $mail->Username = '31c1ee257369f3';
+            $mail->Password = 'e3972277f45fdf';
+            $mail->CharSet = 'UTF-8';
+            $mail->addAddress($email);
+            $mail->setFrom('noreply@hackers-poulette.com', 'Hackers Poulette');
+            $mail->Subject = $subject;
+            $mail->WordWrap = 50;
+            $mail->AltBody = "Thanks for the feedback";
+            $mail->isHTML(true);
+            $mail->Body = "<h1>Welcome !</h1><p>Thanks for de feedback</p>";
+            $mail->send();
+        } catch (Exception $e) {
+            echo "<p> send not ok </p>";
+        }
+    } ?>
+<script>
+    function onSubmit(token) {
+        document.getElementById("submit").submit();
     }
-} ?>
+</script>
 </body>
 </html
 >
