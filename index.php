@@ -1,5 +1,6 @@
 <?php
 
+use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\PHPMailer;
 
 $allFieldEmpty = empty($_POST["name"]) || empty($_POST["gender"]) || empty($_POST["subject"]) || empty($_POST["question"]) || empty($_POST["country"]) || empty($_POST["email"]) || empty($_POST["lastname"]);
@@ -10,32 +11,37 @@ $questionEmpty = empty($_POST["question"]);
 $countryEmpty = empty($_POST["country"]);
 $emailEmpty = empty($_POST["email"]);
 $lastnameEmpty = empty($_POST["lastname"]);
+$filterEmail = filter_var($_POST["email"], FILTER_VALIDATE_EMAIL);
 
-if (isset($_POST["name"]) && isset($_POST["gender"]) && isset($_POST["subject"]) && isset($_POST["question"]) && isset($_POST["country"]) && ($_POST["email"]) && isset($_POST["lastname"])) {
+if (isset($_POST["name"])) {
     $name = $_POST["name"];
-    $lastname = $_POST["lastname"];
-    $email = $_POST["email"];
-    $country = $_POST["country"];
+}
+if (isset($_POST["gender"])) {
     $gender = $_POST["gender"];
+}
+if (isset($_POST["subject"])) {
     $subject = $_POST["subject"];
+}
+if (isset($_POST["question"])) {
     $question = $_POST["question"];
 }
-$email = $_POST["email"];
-$mailIsCorrect = filter_var($email, FILTER_VALIDATE_EMAIL);
+if (isset($_POST["country"])) {
+    $country = $_POST["country"];
+}
+if (isset($_POST["email"])) {
+    $email = $_POST["email"];
+}
+if (isset($_POST["lastname"])) {
+    $lastname = $_POST["lastname"];
+}
+
 $emailNotOk = "Ce mail n'est pas valide";
 $emailOk = "Ce mail est valide";
 require 'PHPMailer-master/src/Exception.php';
 require 'PHPMailer-master/src/PHPMailer.php';
 require 'PHPMailer-master/src/SMTP.php';
-$phpmailer = new PHPMailer();
-$phpmailer->isSMTP();
-$phpmailer->Host = 'smtp.mailtrap.io';
-$phpmailer->SMTPAuth = true;
-$phpmailer->Port = 2525;
-$phpmailer->Username = '31c1ee257369f3';
-$phpmailer->Password = 'e3972277f45fdf';
+$mail = new PHPMailer();
 $emptyField = "Cette valeur est vide";
-
 ?>
 
 <!DOCTYPE html>
@@ -110,7 +116,7 @@ $emptyField = "Cette valeur est vide";
                 <div class="field-body">
                     <div class="field">
                         <div class=" has-icons-left has-icons-left">
-                            <input name="name" id="name" class="input" type="text" placeholder="Name">
+                            <input name="name" id="name" class="input" type="text" placeholder="Name" value="<?php echo $name?>">
                         </div>
                     </div>
                 </div>
@@ -126,7 +132,7 @@ $emptyField = "Cette valeur est vide";
                 <div class="field-body">
                     <div class="field">
                         <div class=" has-icons-left has-icons-left">
-                            <input name="lastname" id="lastname" class="input" type="text" placeholder="Lastname">
+                            <input name="lastname" id="lastname" class="input" type="text" placeholder="Lastname" value="<?php echo $lastname?>">
                         </div>
                     </div>
                 </div>
@@ -135,10 +141,8 @@ $emptyField = "Cette valeur est vide";
             <div class="field is-horizontal">
                 <div class="field-label is-normal">
                     <label for="email" class="label">email</label>
-                    <?php if ($emailEmpty) {
-                        echo "<p>" . $emptyField . "</p>";
-                    }
-                    if ($mailIsCorrect) {
+                    <?php
+                    if ($filterEmail) {
                         echo "<p>" . $emailOk . "</p>";
                     } else {
                         echo "<p>" . $emailNotOk . "</p>";
@@ -148,7 +152,7 @@ $emptyField = "Cette valeur est vide";
                     <div class="field">
 
                         <label class=" has-icons-left has-icons-left">
-                            <input name="email" id="email" class="input" placeholder="Email" value="alex@smith.com">
+                            <input name="email" id="email" class="input" placeholder="Email" value="<?php echo $email?>">
                         </label>
                     </div>
                 </div>
@@ -187,11 +191,11 @@ $emptyField = "Cette valeur est vide";
                     <div class="field is-narrow">
                         <div class="control">
                             <label class="radio">
-                                <input id="gender" value="girl" type="radio" name="gender">
+                                <input id="gender" value="girl" type="radio" name="gender" value="girl">
                                 Girl
                             </label>
                             <label class="radio">
-                                <input id="gender" type="radio" value="boy" name="gender">
+                                <input id="gender" type="radio" value="boy" name="gender" value="boy">
                                 Boy
                             </label>
                         </div>
@@ -231,8 +235,7 @@ $emptyField = "Cette valeur est vide";
                 <div class="field-body">
                     <div class="field">
                         <div class="control">
-                            <textarea name="question" id="question" class="textarea"
-                                      placeholder="Explain how we can help you"></textarea>
+                            <textarea name="question" id="question" class="textarea" placeholder="Explain how we can help you" value="<?php $question ?>"</textarea>
                         </div>
                     </div>
                 </div>
@@ -240,7 +243,6 @@ $emptyField = "Cette valeur est vide";
 
             <div class="field is-horizontal">
                 <div class="field-label">
-                    <p class="has-background-primary">Inscription réussi</p>
                 </div>
                 <div class="field-body">
                     <div class="field">
@@ -259,15 +261,15 @@ $emptyField = "Cette valeur est vide";
     <div class="modal-background"></div>
     <div class="modal-card">
         <header class="modal-card-head">
-            <p class="modal-card-title">Modal title</p>
+            <p class="modal-card-title">Your Welcome!!</p>
             <button class="delete" aria-label="close"></button>
         </header>
         <section class="modal-card-body">
-            <!-- Content ... -->
+            <p>Thanks for the feedback!</p>
         </section>
         <footer class="modal-card-foot">
-            <button class="button is-success">Save changes</button>
-            <button class="button">Cancel</button>
+            <button class="button is-success">close</button>
+
         </footer>
     </div>
 </div>
@@ -277,7 +279,7 @@ $emptyField = "Cette valeur est vide";
     </div>
 </footer>
 <?php
-if (!$allFieldEmpty) {
+if (!$allFieldEmpty && $filterEmail) {
     ?>
     <script>
         let modal = document.getElementById("modalSucces")
@@ -286,7 +288,27 @@ if (!$allFieldEmpty) {
             modal.classList.remove("is-active");
         }
     </script>
-<?php } ?>
+    <?php
+    try {
+        $mail->isSMTP();
+        $mail->Host = 'smtp.mailtrap.io';
+        $mail->SMTPAuth = true;
+        $mail->Port = 2525;
+        $mail->Username = '31c1ee257369f3';
+        $mail->Password = 'e3972277f45fdf';
+        $mail->CharSet = 'UTF-8';
+        $mail->addAddress($_POST["email"]);
+        $mail->setFrom('noreply@hackers-poulette.com', 'Hackers Poulette');
+        $mail->Subject = $_POST["subject"];
+        $mail->WordWrap = 50;
+        $mail->AltBody = "Thanks for the feedback";
+        $mail->isHTML(true);
+        $mail->Body = "<h1>Welcome !</h1><p>Thanks for de feedback</p>";
+        $mail->send();
+    } catch (Exception $e) {
+        echo "<p> send not ok </p>";
+    }
+} ?>
 </body>
-
-</html>
+</html
+>
