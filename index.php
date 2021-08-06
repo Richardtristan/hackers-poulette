@@ -266,7 +266,7 @@ $emptyField = "Cette valeur est vide";
             <button class="delete" aria-label="close"></button>
         </header>
         <section class="modal-card-body">
-            <p>Thanks for the feedback!</p>
+            <h2>Thanks for the feedback!</h2>
         </section>
         <footer class="modal-card-foot">
             <button class="button is-success">close</button>
