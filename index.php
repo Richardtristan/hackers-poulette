@@ -59,22 +59,21 @@ $emptyField = "Cette valeur est vide";
             <img src="https://raw.githubusercontent.com/becodeorg/CRL-Keller-3.31/master/LearningPath/03.The-Mountain/09.PHP/PHP-Challenge/hackers-poulette/hackers-poulette-logo.png?token=AUEZCU3VS5ZEEI3N76PW35TBCOFMQ"
                  alt="logo of the society">
         </a>
+        <div class="navbar-burger" data-target="navbarExampleTransparentExample">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
     </div>
 
     <div id="navbarExampleTransparentExample" class="navbar-menu">
         <div class="navbar-start">
-            <a class="navbar-item" href="https://bulma.io/">
-                Home
-            </a>
+            <a class="navbar-item" href="https://bulma.io/">Home</a>
             <div class="navbar-start">
-                <a class="navbar-item" href="https://bulma.io/">
-                    Infos
-                </a>
+                <a class="navbar-item" href="https://bulma.io/">Infos</a>
             </div>
             <div class="navbar-start">
-                <a class="navbar-item" href="https://bulma.io/">
-                    Contact
-                </a>
+                <a class="navbar-item" href="https://bulma.io/">Contact</a>
             </div>
         </div>
     </div>
@@ -280,5 +279,30 @@ $emptyField = "Cette valeur est vide";
 </footer>
 
 </body>
-<?php include "assets/php/sendMail.php";?>
+<?php include "assets/php/sendMail.php"; ?>
+<script>document.addEventListener('DOMContentLoaded', () => {
+
+        // Get all "navbar-burger" elements
+        const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+
+        // Check if there are any navbar burgers
+        if ($navbarBurgers.length > 0) {
+
+            // Add a click event on each of them
+            $navbarBurgers.forEach( el => {
+                el.addEventListener('click', () => {
+
+                    // Get the target from the "data-target" attribute
+                    const target = el.dataset.target;
+                    const $target = document.getElementById(target);
+
+                    // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+                    el.classList.toggle('is-active');
+                    $target.classList.toggle('is-active');
+
+                });
+            });
+        }
+
+    });</script>
 </html>
