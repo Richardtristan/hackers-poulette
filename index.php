@@ -178,7 +178,7 @@ $emptyField = "Cette valeur est vide";
 
             <div class="field is-horizontal">
                 <div class="field-label">
-                    <label for="gender" class="label">your gender?</label>
+                    <p class="label">your gender?</p>
                     <?php if ($genderEmpty) {
                         echo "<p>" . $emptyField . "</p>";
                     } ?>
@@ -186,12 +186,12 @@ $emptyField = "Cette valeur est vide";
                 <div class="field-body">
                     <div class="field is-narrow">
                         <div class="control">
-                            <label class="radio">
-                                <input type="radio" name="gender" value="girl">
+                            <label for="girl" class="radio">
+                                <input id="girl" type="radio" name="gender" value="girl">
                                 Girl
                             </label>
-                            <label class="radio">
-                                <input type="radio" name="gender" value="boy">
+                            <label for="boy" class="radio">
+                                <input id="boy" type="radio" name="gender" value="boy">
                                 Boy
                             </label>
                         </div>
