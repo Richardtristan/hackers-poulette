@@ -69,8 +69,9 @@ respond to the user request with Ajax
  
 ## prerequisite :
 
-*PHP
-*FRAMEWORK CSS
-*HTML
+*Php
+*Framework css
+*Scss
+*Html
 *Javascipt
 *Using a text editor
