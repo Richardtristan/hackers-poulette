@@ -2,6 +2,7 @@
 require 'PHPMailer-master/src/Exception.php';
 require 'PHPMailer-master/src/PHPMailer.php';
 require 'PHPMailer-master/src/SMTP.php';
+
 use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\PHPMailer;
 
@@ -24,7 +25,6 @@ $lastname = $_POST["lastname"] ?? "";
 $filterEmail = filter_var($email, FILTER_VALIDATE_EMAIL);
 $emailNotOk = "Ce mail n'est pas valide";
 $emailOk = "Ce mail est valide";
-
 $mail = new PHPMailer();
 $emptyField = "Cette valeur est vide";
 ?>
@@ -39,8 +39,15 @@ $emptyField = "Cette valeur est vide";
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
     <link rel="stylesheet" href="assets/css/main.css">
     <script src="assets/js/main.js"></script>
-    <script src="https://www.google.com/recaptcha/api.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <script src="https://www.google.com/recaptcha/api.js?render=6Ldfnd8bAAAAAN2-BF7s2Cu4_gecq2z-92h8uQRu"></script>
+    <script>
+        grecaptcha.ready(function () {
+            grecaptcha.execute('6Ldfnd8bAAAAAN2-BF7s2Cu4_gecq2z-92h8uQRu', {action: 'contact'}).then(function (token) {
+                var recaptchaResponse = document.getElementById('recaptchaResponse');
+                recaptchaResponse.value = token;
+            });
+        });
+    </script>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bellota:wght@300&display=swap" rel="stylesheet">
 </head>
@@ -102,7 +109,8 @@ $emptyField = "Cette valeur est vide";
                 <div class="field-body">
                     <div class="field">
                         <div class=" has-icons-left has-icons-left">
-                            <input name="name" id="name" class="input" type="text" placeholder="Name" value="<?php echo $name?>">
+                            <input name="name" id="name" class="input" type="text" placeholder="Name"
+                                   value="<?php echo htmlspecialchars($name) ?>">
                         </div>
                     </div>
                 </div>
@@ -118,7 +126,8 @@ $emptyField = "Cette valeur est vide";
                 <div class="field-body">
                     <div class="field">
                         <div class=" has-icons-left has-icons-left">
-                            <input name="lastname" id="lastname" class="input" type="text" placeholder="Lastname" value="<?php echo $lastname?>">
+                            <input name="lastname" id="lastname" class="input" type="text" placeholder="Lastname"
+                                   value="<?php echo $lastname ?>">
                         </div>
                     </div>
                 </div>
@@ -138,7 +147,8 @@ $emptyField = "Cette valeur est vide";
                     <div class="field">
 
                         <label class=" has-icons-left has-icons-left">
-                            <input name="email" id="email" class="input" type="email" placeholder="Email" value="<?php echo $email?>">
+                            <input name="email" id="email" class="input" type="email" placeholder="Email"
+                                   value="<?php echo $email ?>">
                         </label>
                     </div>
                 </div>
@@ -177,11 +187,11 @@ $emptyField = "Cette valeur est vide";
                     <div class="field is-narrow">
                         <div class="control">
                             <label class="radio">
-                                <input id="gender" value="girl" type="radio" name="gender" value="girl">
+                                <input type="radio" name="gender" value="girl">
                                 Girl
                             </label>
                             <label class="radio">
-                                <input id="gender" type="radio" value="boy" name="gender" value="boy">
+                                <input type="radio" name="gender" value="boy">
                                 Boy
                             </label>
                         </div>
@@ -221,7 +231,8 @@ $emptyField = "Cette valeur est vide";
                 <div class="field-body">
                     <div class="field">
                         <div class="control">
-                            <textarea name="question" id="question" class="textarea" placeholder="<?php echo $question ?>"></textarea>
+                            <textarea name="question" id="question" class="textarea"
+                                      placeholder="<?php echo $question ?>"></textarea>
                         </div>
                     </div>
                 </div>
@@ -237,14 +248,13 @@ $emptyField = "Cette valeur est vide";
                                     id="submit"
                                     name="submit"
                                     value="ok"
-                                    class="g-recaptcha button is-primary"
-                                    data-sitekey="6Ldfnd8bAAAAAN2-BF7s2Cu4_gecq2z-92h8uQRu"
-                                    data-callback='onSubmit'
-                                    data-action='submit'>Submit</button>
+                                    class="button is-primary">Submit
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
+            <input type="hidden" name="recaptcha_response" id="recaptchaResponse">
         </form>
     </div>
 </section>
@@ -268,40 +278,7 @@ $emptyField = "Cette valeur est vide";
         <p>Copyright Tristan RICHARD 2021</p>
     </div>
 </footer>
-    <?php if (!$allFieldEmpty && $filterEmail) { ?>
-        <script>
-            let modal = document.getElementById("modalSucces")
-            modal.classList.add("is-active")
-            modal.onclick = function () {
-                modal.classList.remove("is-active");
-            }
-        </script>
-    <?php
-        try {
-            $mail->isSMTP();
-            $mail->Host = 'smtp.mailtrap.io';
-            $mail->SMTPAuth = true;
-            $mail->Port = 2525;
-            $mail->Username = '31c1ee257369f3';
-            $mail->Password = 'e3972277f45fdf';
-            $mail->CharSet = 'UTF-8';
-            $mail->addAddress($email);
-            $mail->setFrom('noreply@hackers-poulette.com', 'Hackers Poulette');
-            $mail->Subject = $subject;
-            $mail->WordWrap = 50;
-            $mail->AltBody = "Thanks for the feedback";
-            $mail->isHTML(true);
-            $mail->Body = "<h1>Welcome !</h1><p>Thanks for de feedback</p>";
-            $mail->send();
-        } catch (Exception $e) {
-            echo "<p> send not ok </p>";
-        }
-    } ?>
-<script>
-    function onSubmit(token) {
-        document.getElementById("submit").submit();
-    }
-</script>
+
 </body>
-</html
->
+<?php include "assets/php/sendMail.php";?>
+</html>
