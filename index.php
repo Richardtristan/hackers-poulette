@@ -30,7 +30,7 @@ $emptyField = "Cette valeur est vide";
 ?>
 
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html" lang="en">
+<html xmlns="http://www.w3.org/1999/html" lang="en">
 
 <head>
     <meta charset="utf-8">
@@ -57,7 +57,7 @@ $emptyField = "Cette valeur est vide";
     <div class="navbar-brand">
         <a class="navbar-item" href="#">
             <img src="https://raw.githubusercontent.com/becodeorg/CRL-Keller-3.31/master/LearningPath/03.The-Mountain/09.PHP/PHP-Challenge/hackers-poulette/hackers-poulette-logo.png?token=AUEZCU3VS5ZEEI3N76PW35TBCOFMQ"
-                 alt="logo of the society"">
+                 alt="logo of the society">
         </a>
     </div>
 
