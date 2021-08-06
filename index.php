@@ -120,7 +120,7 @@ $emptyField = "Cette valeur est vide";
                 <div class="field-label is-normal">
                     <label for="lastname" class="label">Lastname</label>
                     <?php if ($lastnameEmpty) {
-                        echo $emptyField . "</p>";
+                        echo "<p>" . $emptyField . "</p>";
                     } ?>
                 </div>
                 <div class="field-body">
