@@ -57,7 +57,7 @@ $emptyField = "Cette valeur est vide";
     <div class="navbar-brand">
         <a class="navbar-item" href="#">
             <img src="https://raw.githubusercontent.com/becodeorg/CRL-Keller-3.31/master/LearningPath/03.The-Mountain/09.PHP/PHP-Challenge/hackers-poulette/hackers-poulette-logo.png?token=AUEZCU3VS5ZEEI3N76PW35TBCOFMQ"
-                 alt="logo of the society" width="300%%" height="300%">
+                 alt="logo of the society"">
         </a>
     </div>
 
