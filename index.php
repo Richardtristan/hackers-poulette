@@ -35,6 +35,7 @@ $emptyField = "Cette valeur est vide";
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Site Php for Form">
     <title>Hello Bulma!</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
     <link rel="stylesheet" href="assets/css/main.css">
@@ -56,8 +57,7 @@ $emptyField = "Cette valeur est vide";
 <nav id="topnav" class="navbar is-dark">
     <div class="navbar-brand">
         <a class="navbar-item" href="#">
-            <img src="https://raw.githubusercontent.com/becodeorg/CRL-Keller-3.31/master/LearningPath/03.The-Mountain/09.PHP/PHP-Challenge/hackers-poulette/hackers-poulette-logo.png?token=AUEZCU3VS5ZEEI3N76PW35TBCOFMQ"
-                 alt="logo of the society">
+            <img src="https://raw.githubusercontent.com/becodeorg/CRL-Keller-3.31/master/LearningPath/03.The-Mountain/09.PHP/PHP-Challenge/hackers-poulette/hackers-poulette-logo.png?token=AUEZCU3VS5ZEEI3N76PW35TBCOFMQ" alt="logo of the society">
         </a>
         <div class="navbar-burger" data-target="navbarExampleTransparentExample">
             <span></span>
@@ -80,13 +80,12 @@ $emptyField = "Cette valeur est vide";
 </nav>
 <div id="logoPrincipal" class="is-flex is-justify-content-center pt-6 pb-6">
     <figure class="image">
-        <img id="logoPrincipalRound" alt="image of the logo of de society"
-             src="https://raw.githubusercontent.com/becodeorg/CRL-Keller-3.31/master/LearningPath/03.The-Mountain/09.PHP/PHP-Challenge/hackers-poulette/hackers-poulette-logo.png?token=AUEZCU3VS5ZEEI3N76PW35TBCOFMQ">
+        <img width="100%" height="100%" id="logoPrincipalRound" alt="image of the logo of de society" src="https://raw.githubusercontent.com/becodeorg/CRL-Keller-3.31/master/LearningPath/03.The-Mountain/09.PHP/PHP-Challenge/hackers-poulette/hackers-poulette-logo.png?token=AUEZCU3VS5ZEEI3N76PW35TBCOFMQ">
     </figure>
 </div>
 <section class="section columns">
     <div class="container column is-2">
-        <img width="250" alt="image of envelope" class="image is-16by9 pt-6"
+        <img width="100%" height="100%" alt="image of envelope" class="image is-16by9 pt-6"
              src="assets/img/send.png">
     </div>
     <div class="container column is-9">
