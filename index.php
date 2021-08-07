@@ -26,7 +26,7 @@ $filterEmail = filter_var($email, FILTER_VALIDATE_EMAIL);
 $emailNotOk = "Ce mail n'est pas valide";
 $emailOk = "Ce mail est valide";
 $mail = new PHPMailer();
-$emptyField = "Cette valeur est vide";
+$emptyField = "<p style='color : red'>Cette valeur est vide</p>"
 ?>
 
 <!DOCTYPE html>
