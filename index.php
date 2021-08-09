@@ -39,12 +39,11 @@ $emptyField = "<p style='color : red'>Cette valeur est vide</p>"
     <title>Hello Bulma!</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
     <link rel="stylesheet" href="assets/css/main.css">
-    <script src="assets/js/main.js"></script>
     <script src="https://www.google.com/recaptcha/api.js?render=6Ldfnd8bAAAAAN2-BF7s2Cu4_gecq2z-92h8uQRu"></script>
     <script>
         grecaptcha.ready(function () {
             grecaptcha.execute('6Ldfnd8bAAAAAN2-BF7s2Cu4_gecq2z-92h8uQRu', {action: 'contact'}).then(function (token) {
-                var recaptchaResponse = document.getElementById('recaptchaResponse');
+                let recaptchaResponse = document.getElementById('recaptchaResponse');
                 recaptchaResponse.value = token;
             });
         });
@@ -57,7 +56,7 @@ $emptyField = "<p style='color : red'>Cette valeur est vide</p>"
 <nav id="topnav" class="navbar is-dark">
     <div class="navbar-brand">
         <a class="navbar-item" href="#">
-            <img src="https://raw.githubusercontent.com/becodeorg/CRL-Keller-3.31/master/LearningPath/03.The-Mountain/09.PHP/PHP-Challenge/hackers-poulette/hackers-poulette-logo.png?token=AUEZCU3VS5ZEEI3N76PW35TBCOFMQ" alt="logo of the society">
+            <img src="assets/img/hackers-poulette-logo.png" alt="logo of the society">
         </a>
         <div class="navbar-burger" data-target="navbarExampleTransparentExample">
             <span></span>
@@ -80,12 +79,12 @@ $emptyField = "<p style='color : red'>Cette valeur est vide</p>"
 </nav>
 <div id="logoPrincipal" class="is-flex is-justify-content-center pt-6 pb-6">
     <figure class="image">
-        <img width="100%" height="100%" id="logoPrincipalRound" alt="image of the logo of de society" src="https://raw.githubusercontent.com/becodeorg/CRL-Keller-3.31/master/LearningPath/03.The-Mountain/09.PHP/PHP-Challenge/hackers-poulette/hackers-poulette-logo.png?token=AUEZCU3VS5ZEEI3N76PW35TBCOFMQ">
+        <img height="500" id="logoPrincipalRound" alt="image of the logo of de society" src="assets/img/hackers-poulette-logo.png">
     </figure>
 </div>
 <section class="section columns">
     <div class="container column is-2">
-        <img width="100%" height="100%" alt="image of envelope" class="image is-16by9 pt-6"
+        <img width="512" height="512" alt="image of envelope" class="image is-16by9 pt-6"
              src="assets/img/send.png">
     </div>
     <div class="container column is-9">
@@ -145,8 +144,7 @@ $emptyField = "<p style='color : red'>Cette valeur est vide</p>"
                     <div class="field">
 
                         <label class=" has-icons-left has-icons-left">
-                            <input name="email" id="email" class="input" type="email" placeholder="Email"
-                                   value="<?php echo $email ?>">
+                            <input name="email" id="email" class="input" type="email" placeholder="Email" value="<?php echo $email ?> ">
                         </label>
                     </div>
                 </div>
