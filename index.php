@@ -269,13 +269,7 @@ $emptyField = "<p style='color : red'>Cette valeur est vide</p>"
         </footer>
     </div>
 </div>
-<footer id="footer" class="footer mb-0">
-    <div class="content has-text-centered has-text-white">
-        <p>Copyright Tristan RICHARD 2021</p>
-    </div>
-</footer>
 
-</body>
 <?php include "assets/php/sendMail.php"; ?>
 <script>document.addEventListener('DOMContentLoaded', () => {
 
@@ -302,4 +296,10 @@ $emptyField = "<p style='color : red'>Cette valeur est vide</p>"
         }
 
     });</script>
+
+<footer id="footer" class="footer mb-0">
+    <div class="content has-text-centered has-text-white">
+        <p>Copyright Tristan RICHARD 2021</p>
+    </div>
+</footer>
 </html>
