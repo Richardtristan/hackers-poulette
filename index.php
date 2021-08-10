@@ -23,10 +23,10 @@ $country = $_POST["country"] ?? "";
 $email = $_POST["email"] ?? "";
 $lastname = $_POST["lastname"] ?? "";
 $filterEmail = filter_var($email, FILTER_VALIDATE_EMAIL);
-$emailNotOk = "Ce mail n'est pas valide";
-$emailOk = "Ce mail est valide";
 $mail = new PHPMailer();
-$emptyField = "<p style='color : red'>Cette valeur est vide</p>"
+$emailNotOk = "<p class='has-text-danger'>Ce mail n'est pas valide</p>";
+$emailOk = "<p class='has-text-danger'>Ce mail est valide</p>";
+$emptyField = "<p class='has-text-danger'>Cette valeur est vide</p>";
 ?>
 
 <!DOCTYPE html>
@@ -39,12 +39,11 @@ $emptyField = "<p style='color : red'>Cette valeur est vide</p>"
     <title>Hello Bulma!</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
     <link rel="stylesheet" href="assets/css/main.css">
-    <script src="assets/js/main.js"></script>
     <script src="https://www.google.com/recaptcha/api.js?render=6Ldfnd8bAAAAAN2-BF7s2Cu4_gecq2z-92h8uQRu"></script>
     <script>
         grecaptcha.ready(function () {
             grecaptcha.execute('6Ldfnd8bAAAAAN2-BF7s2Cu4_gecq2z-92h8uQRu', {action: 'contact'}).then(function (token) {
-                var recaptchaResponse = document.getElementById('recaptchaResponse');
+                let recaptchaResponse = document.getElementById('recaptchaResponse');
                 recaptchaResponse.value = token;
             });
         });
@@ -101,7 +100,7 @@ $emptyField = "<p style='color : red'>Cette valeur est vide</p>"
                 <div class="field-label is-normal">
                     <label for="name" class="label">Name</label>
                     <?php if ($nameEmpty) {
-                        echo "<p>" . $emptyField . "</p>";
+                        echo  $emptyField ;
                     } ?>
                 </div>
                 <div class="field-body">
@@ -136,9 +135,9 @@ $emptyField = "<p style='color : red'>Cette valeur est vide</p>"
                     <label for="email" class="label">email</label>
                     <?php
                     if ($filterEmail) {
-                        echo "<p>" . $emailOk . "</p>";
+                        echo  $emailOk ;
                     } else {
-                        echo "<p>" . $emailNotOk . "</p>";
+                        echo$emailNotOk ;
                     } ?>
                 </div>
                 <div class="field-body">
