@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['recaptcha_response'])
                 $mail->isHTML(true);
                 $mail->Body = "<h1>Welcome !</h1><p>Thanks for de feedback</p>";
                 $mail->send();
-                header("location: index.php"); ?>
+                $_POST =[]; ?>
                 <script>
                     window.onload = () =>{
                     let modal = document.getElementById("modalSucces")
