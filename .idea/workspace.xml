@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="711830ed-c6c5-4729-99ad-0cdad4a62b18" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/assets/php/sendMail.php" beforeDir="false" afterPath="$PROJECT_DIR$/assets/php/sendMail.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,7 +53,7 @@
       <workItem from="1628332130306" duration="1048000" />
       <workItem from="1628333217584" duration="196000" />
       <workItem from="1628579874658" duration="1745000" />
-      <workItem from="1628605086760" duration="1634000" />
+      <workItem from="1628605086760" duration="2008000" />
     </task>
     <servers />
   </component>
