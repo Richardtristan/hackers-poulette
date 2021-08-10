@@ -25,7 +25,7 @@ $lastname = $_POST["lastname"] ?? "";
 $filterEmail = filter_var($email, FILTER_VALIDATE_EMAIL);
 $mail = new PHPMailer();
 $emailNotOk = "<p class='has-text-danger'>Ce mail n'est pas valide</p>";
-$emailOk = "<p class='has-text-danger'>Ce mail est valide</p>";
+$emailOk = "<p class='has-text-success'>Ce mail est valide</p>";
 $emptyField = "<p class='has-text-danger'>Cette valeur est vide</p>";
 ?>
 
