@@ -117,7 +117,7 @@ $emptyField = "<p class='has-text-danger'>Cette valeur est vide</p>";
                 <div class="field-label is-normal">
                     <label for="lastname" class="label">Lastname</label>
                     <?php if ($lastnameEmpty) {
-                        echo "<p>" . $emptyField . "</p>";
+                        echo $emptyField;
                     } ?>
                 </div>
                 <div class="field-body">
@@ -155,7 +155,7 @@ $emptyField = "<p class='has-text-danger'>Cette valeur est vide</p>";
                 <div class="field-label is-normal">
                     <label for="country" class="label">country</label>
                     <?php if ($countryEmpty) {
-                        echo "<p>" . $emptyField . "</p>";
+                        echo $emptyField;
                     } ?>
                 </div>
                 <div class="field-body">
@@ -177,7 +177,7 @@ $emptyField = "<p class='has-text-danger'>Cette valeur est vide</p>";
                 <div class="field-label">
                     <p class="label">your gender?</p>
                     <?php if ($genderEmpty) {
-                        echo "<p>" . $emptyField . "</p>";
+                        echo $emptyField;
                     } ?>
                 </div>
                 <div class="field-body">
@@ -200,7 +200,7 @@ $emptyField = "<p class='has-text-danger'>Cette valeur est vide</p>";
                 <div class="field-label is-normal">
                     <label for="subject" class="label">Subject</label>
                     <?php if ($subjectEmpty) {
-                        echo "<p>" . $emptyField . "</p>";
+                        echo $emptyField;
                     } ?>
                 </div>
                 <div class="field-body">
@@ -222,7 +222,7 @@ $emptyField = "<p class='has-text-danger'>Cette valeur est vide</p>";
                 <div class="field-label is-normal">
                     <label for="question" class="label">Question</label>
                     <?php if ($questionEmpty) {
-                        echo "<p>" . $emptyField . "</p>";
+                        echo $emptyField;
                     } ?>
                 </div>
                 <div class="field-body">
