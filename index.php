@@ -23,10 +23,10 @@ $country = $_POST["country"] ?? "";
 $email = $_POST["email"] ?? "";
 $lastname = $_POST["lastname"] ?? "";
 $filterEmail = filter_var($email, FILTER_VALIDATE_EMAIL);
-$emailNotOk = "Ce mail n'est pas valide";
-$emailOk = "Ce mail est valide";
 $mail = new PHPMailer();
-$emptyField = "<p style='color : red'>Cette valeur est vide</p>"
+$emailNotOk = "<p class='has-text-danger'>Ce mail n'est pas valide</p>";
+$emailOk = "<p class='has-text-success'>Ce mail est valide</p>";
+$emptyField = "<p class='has-text-danger'>Cette valeur est vide</p>";
 ?>
 
 <!DOCTYPE html>
@@ -100,7 +100,7 @@ $emptyField = "<p style='color : red'>Cette valeur est vide</p>"
                 <div class="field-label is-normal">
                     <label for="name" class="label">Name</label>
                     <?php if ($nameEmpty) {
-                        echo "<p>" . $emptyField . "</p>";
+                        echo  $emptyField ;
                     } ?>
                 </div>
                 <div class="field-body">
@@ -117,7 +117,7 @@ $emptyField = "<p style='color : red'>Cette valeur est vide</p>"
                 <div class="field-label is-normal">
                     <label for="lastname" class="label">Lastname</label>
                     <?php if ($lastnameEmpty) {
-                        echo "<p>" . $emptyField . "</p>";
+                        echo $emptyField;
                     } ?>
                 </div>
                 <div class="field-body">
@@ -135,9 +135,9 @@ $emptyField = "<p style='color : red'>Cette valeur est vide</p>"
                     <label for="email" class="label">email</label>
                     <?php
                     if ($filterEmail) {
-                        echo "<p>" . $emailOk . "</p>";
+                        echo  $emailOk ;
                     } else {
-                        echo "<p>" . $emailNotOk . "</p>";
+                        echo$emailNotOk ;
                     } ?>
                 </div>
                 <div class="field-body">
@@ -154,7 +154,7 @@ $emptyField = "<p style='color : red'>Cette valeur est vide</p>"
                 <div class="field-label is-normal">
                     <label for="country" class="label">country</label>
                     <?php if ($countryEmpty) {
-                        echo "<p>" . $emptyField . "</p>";
+                        echo $emptyField;
                     } ?>
                 </div>
                 <div class="field-body">
@@ -176,7 +176,7 @@ $emptyField = "<p style='color : red'>Cette valeur est vide</p>"
                 <div class="field-label">
                     <p class="label">your gender?</p>
                     <?php if ($genderEmpty) {
-                        echo "<p>" . $emptyField . "</p>";
+                        echo $emptyField;
                     } ?>
                 </div>
                 <div class="field-body">
@@ -199,7 +199,7 @@ $emptyField = "<p style='color : red'>Cette valeur est vide</p>"
                 <div class="field-label is-normal">
                     <label for="subject" class="label">Subject</label>
                     <?php if ($subjectEmpty) {
-                        echo "<p>" . $emptyField . "</p>";
+                        echo $emptyField;
                     } ?>
                 </div>
                 <div class="field-body">
@@ -221,7 +221,7 @@ $emptyField = "<p style='color : red'>Cette valeur est vide</p>"
                 <div class="field-label is-normal">
                     <label for="question" class="label">Question</label>
                     <?php if ($questionEmpty) {
-                        echo "<p>" . $emptyField . "</p>";
+                        echo $emptyField;
                     } ?>
                 </div>
                 <div class="field-body">
