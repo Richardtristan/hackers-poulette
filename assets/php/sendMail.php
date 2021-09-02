@@ -1,15 +1,15 @@
 <?php
 $serveur = "localhost";
-$dbname = "id17361846_form";
-$user = "id17361846_root";
-$pass = "N*1NWN92##D7f/\Z";
+$dbname = "secret";
+$user = "secret";
+$pass = "secret";
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['recaptcha_response'])) {
 
 // Build POST request:
-    $recaptcha_url = 'https://www.google.com/recaptcha/api/siteverify';
-    $recaptcha_secret = '6Ldfnd8bAAAAAEBJXTFEOuItDyHIYcDQD72Ofmhn';
+    $recaptcha_url = 'secret';
+    $recaptcha_secret = 'secret';
     $recaptcha_response = $_POST['recaptcha_response'];
 
 // Make and decode POST request:
